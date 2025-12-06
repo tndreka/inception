@@ -1,0 +1,9 @@
+#Env variables
+srcs/.env
+
+#secrets
+secrets/
+
+
+#system files
+.DS_Store
