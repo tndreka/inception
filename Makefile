@@ -45,3 +45,17 @@ logs:
 	@docker-compose -f $(COMPOSE_FILE) logs -f 
 
 clean: down
+	@echo "$(RED) Cleaning containers & images$(NC)"
+	@docker system prune -af
+	@echo "$(RED) cleanup complete . . .$(NC)"
+
+fclean: clean
+	@echo "$(RED) Removing volumes and data. . . $(NC)"
+	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
+	@sudo rm -rf $(DATA_PATH)/wordpress
+	@sudo rm -rf $(DATA_PATH)/mariadb
+	@echo "$(RED) Full cleanup complete. . .$(NC)"
+
+re: fclean all
+
+.PHONY: all setup build up down restart logs clean fclean re
