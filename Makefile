@@ -25,3 +25,23 @@ build: setup
 	@echo "$(GREEN) Build complete. . . $(NC)"
 
 #start container
+up: setup
+	@echo "$(GREEN) starting containers. . . $(NC)"
+	@docker-compose -f $(COMPOSE_FILE) up -d
+	@echo "$(GREEN) containers are running. . . $(NC)"
+
+#Stop container
+down:
+	@echo "$(GREEN) Stopping containers. . . $(NC)"
+	@docker-compose -f $(COMPOSE_FILE) up -d
+	@echo "$(GREEN) containers stopped. . . $(NC)"
+
+restart: up down
+
+status:
+	@docker-compose -f $(COMPOSE_FILE) ps
+
+logs:
+	@docker-compose -f $(COMPOSE_FILE) logs -f 
+
+clean: down
