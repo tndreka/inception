@@ -1,5 +1,3 @@
-# version: '3.8'
-
 services:
   mariadb:
     container_name: mariadb
@@ -37,6 +35,24 @@ services:
         condition: service_healthy
     restart: always
 
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    image: nginx:inception
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - "443:443"
+    networks:
+      - inception_network
+    depends_on:
+      - wordpress
+    restart: always
+
 volumes:
   mariadb_data:
     driver: local
@@ -51,8 +67,6 @@ volumes:
       type: none
       o: bind
       device: ${VOLUME_PATH}/wordpress
-
-
 
 networks:
   inception_network:
