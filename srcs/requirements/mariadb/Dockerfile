@@ -5,6 +5,7 @@ RUN apt-get update && \
     apt-get install -y \
     mariadb-server \
     mariadb-client && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
     
 RUN mkdir -p /var/run/mysqld && \
@@ -17,5 +18,6 @@ COPY tools/init_db.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/init_db.sh
 
 EXPOSE 3306
+# EXPOSE 443
 
 ENTRYPOINT ["/usr/local/bin/init_db.sh"]

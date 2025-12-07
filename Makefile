@@ -1,6 +1,6 @@
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-DATA_PATH = /home/$(USER)/data 
+DATA_PATH = $(HOME)/data 
 
 #colors
 GREEN = \033[0;32m
@@ -33,7 +33,7 @@ up: setup
 #Stop container
 down:
 	@echo "$(GREEN) Stopping containers. . . $(NC)"
-	@docker-compose -f $(COMPOSE_FILE) up -d
+	@docker-compose -f $(COMPOSE_FILE) down
 	@echo "$(GREEN) containers stopped. . . $(NC)"
 
 restart: up down
