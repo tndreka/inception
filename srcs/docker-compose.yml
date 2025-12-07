@@ -1,0 +1,33 @@
+vesrion: '3.8'
+
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: maridb:inception
+    env_file:
+      - .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    network: 
+      - inception netwerk
+    restar: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${MYSQL_USRR}", "-p${MYSQL_PASSWORD}"]
+      insterval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  maria_db:
+  driver: local
+driver_opts:
+    type: none
+    o: bind
+    device: ${VOLUME_PATH}/mariadb
+  
+networks:
+  inception_network:
+    driver: bridge
