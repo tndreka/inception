@@ -33,3 +33,9 @@ RUN mkdir -p /var/www/html && \
 WORKDIR /var/www/html
 
 EXPOSE 9000
+
+# Copy setup script
+COPY tools/setup_wordpress.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/setup_wordpress.sh
+
+ENTRYPOINT ["/usr/local/bin/setup_wordpress.sh"]
