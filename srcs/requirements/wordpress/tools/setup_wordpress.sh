@@ -33,11 +33,18 @@ if [ ! -f wp-config.php ]; then
         --skip-email \
         --allow-root
     
+    echo "Creating additional user..."
+    wp user create \
+        ${WORDPRESS_USER} \
+        ${WORDPRESS_USER_EMAIL} \
+        --role=author \
+        --user_pass=${WORDPRESS_USER_PASSWORD} \
+        --allow-root
+
     echo "WordPress installation complete!"
 else
     echo "WordPress already installed, skipping setup..."
 fi
 
-# Start PHP-FPM in foreground
 echo "Starting PHP-FPM..."
 exec php-fpm7.4 -F
