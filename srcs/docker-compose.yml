@@ -1,22 +1,18 @@
-# 8version: '3.8'
+version: '3.8'
 
 services:
   mariadb:
-    # container_name: mariadb
-    # image: mariadb
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    image: maridb:inception
-    ports:
-      - 4443
-    #  - 443
+    image: mariadb:inception
     env_file:
       - .env
     volumes:
       - mariadb_data:/var/lib/mysql
-    network: 
-      - inception netwerk
+    networks: 
+      - inception_network
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
@@ -24,14 +20,40 @@ services:
       timeout: 5s
       retries: 5
 
+wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress:inception
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception_network
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: always
+
 volumes:
-  maria_db:
+  mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: ${VOLUME_PATH}/mariadb
   
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH}/wordpress
+
+
+
 networks:
   inception_network:
     driver: bridge
