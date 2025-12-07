@@ -1,0 +1,21 @@
+[mysql]
+user = mysql
+port =8080
+bind-address = 0.0.0.0
+datadir = var/lib/mysql
+socket = /var/run/mysqld/mysqld.socket
+pid-file = /var/run/mysqld/mysqld.pid
+
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+log_error = /var/log/mysql/error.log
+
+skip-name-resolve
+
+[client]
+port = 8080
+socket =/var/run/mysqld/mysqld.sock
+
+[mysql]
+default-character-set = utf8mb4
