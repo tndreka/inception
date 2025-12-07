@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   mariadb:
@@ -20,7 +20,7 @@ services:
       timeout: 5s
       retries: 5
 
-wordpress:
+  wordpress:
     container_name: wordpress
     build:
       context: ./requirements/wordpress
