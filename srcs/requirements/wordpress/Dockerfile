@@ -18,8 +18,17 @@ RUN apt-get update && \
     mariadb-client && \
     rm -rf /var/lib/apt/lists/*
 
+# Download and install WP-CLI
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
+# Configure PHP-FPM to listen on port 9000
+RUN sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+
 # Create WordPress directory
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html && \
+    chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
