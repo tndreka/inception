@@ -10,7 +10,6 @@ until mysql -h${WORDPRESS_DB_HOST%:*} -u${WORDPRESS_DB_USER} -p${WORDPRESS_DB_PA
 done
 echo "MariaDB is ready!"
 
-# Download WordPress if not exists
 if [ ! -f wp-config.php ]; then
     echo "Downloading WordPress..."
     wp core download --allow-root
@@ -40,11 +39,15 @@ if [ ! -f wp-config.php ]; then
         --role=author \
         --user_pass=${WORDPRESS_USER_PASSWORD} \
         --allow-root
-
-    echo "WordPress installation complete!"
+    
+    echo "WordPress setup complete!"
 else
     echo "WordPress already installed, skipping setup..."
 fi
+
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+
 
 echo "Starting PHP-FPM..."
 exec php-fpm7.4 -F
