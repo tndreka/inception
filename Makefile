@@ -1,6 +1,6 @@
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-DATA_PATH = /goinfre/tndreka/data
+DATA_PATH = /home/tndreka/data
 
 #colors
 GREEN = \033[0;32m
@@ -42,13 +42,13 @@ logs:
 	@docker compose -f $(COMPOSE_FILE) logs -f
 
 clean: down
-	@echo "$(RED) Cleaning containers & images$(NC)"
-	@docker system prune -af
-	@echo "$(RED) cleanup complete . . .$(NC)"
+	@echo "$(RED)Cleaning containers & images$(NC)"
+	@docker system prune -af > /dev/null 2>&1
+	@echo "$(RED)Cleanup complete$(NC)"
 
 
 fclean: clean
-	@echo "$(RED) Removing volumes and data. . . $(NC)"
+	@echo "$(RED)Removing volumes and data$(NC)"
 	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
 	@if [ -d "$(DATA_PATH)/wordpress" ]; then \
 		docker run --rm -v $(DATA_PATH):/data alpine sh -c "rm -rf /data/wordpress/*" 2>/dev/null || true; \
@@ -58,7 +58,7 @@ fclean: clean
 		docker run --rm -v $(DATA_PATH):/data alpine sh -c "rm -rf /data/mariadb/*" 2>/dev/null || true; \
 		rm -rf $(DATA_PATH)/mariadb 2>/dev/null || true; \
 	fi
-	@echo "$(RED) Full cleanup complete. . .$(NC)"
+	@echo "$(RED)Full cleanup complete$(NC)"
 
 
 re: fclean all
