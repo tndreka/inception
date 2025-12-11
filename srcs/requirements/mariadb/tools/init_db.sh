@@ -4,13 +4,11 @@ set -e
 
 echo "Starting MariaDB initialization..."
 
-# Initialize MariaDB data directory if it doesn't exist
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing MariaDB data directory..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 fi
 
-# Start MariaDB temporarily for setup
 echo "Starting MariaDB daemon..."
 mysqld_safe --datadir=/var/lib/mysql &
 pid=$!

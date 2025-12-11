@@ -15,9 +15,7 @@ RUN apt-get update && \
     php7.4-zip \
     wget \
     curl \
-    mariadb-client \
-    iputils-ping \
-    netcat && \
+    mariadb-client && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \

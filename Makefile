@@ -49,7 +49,7 @@ clean: down
 
 fclean: clean
 	@echo "$(RED)Removing volumes and data$(NC)"
-	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
+	@docker volume rm srcs_mariadb_data srcs_wordpress_data 2>/dev/null || true
 	@if [ -d "$(DATA_PATH)/wordpress" ]; then \
 		docker run --rm -v $(DATA_PATH):/data alpine sh -c "rm -rf /data/wordpress/*" 2>/dev/null || true; \
 		rm -rf $(DATA_PATH)/wordpress 2>/dev/null || true; \
