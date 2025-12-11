@@ -1,9 +1,11 @@
-#Env variables
+# Env variables
 srcs/.env
 
-#secrets
+# Secrets
 secrets/
 
+# System files
+.DS_Store
 
-#system files
-.DS_Storesrcs/.env
+# IDE
+.vscode/
