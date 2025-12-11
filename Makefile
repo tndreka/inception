@@ -43,7 +43,7 @@ logs:
 
 clean: down
 	@echo "$(RED)Cleaning containers & images$(NC)"
-	@docker system prune -af > /dev/null 2>&1
+	@docker system prune -af
 	@echo "$(RED)Cleanup complete$(NC)"
 
 
