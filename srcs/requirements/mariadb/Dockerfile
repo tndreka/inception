@@ -14,7 +14,9 @@ RUN mkdir -p /var/run/mysqld && \
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY tools/init_db.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/init_db.sh
+COPY tools/healthcheck.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/init_db.sh && \
+    chmod +x /usr/local/bin/healthcheck.sh
 
 EXPOSE 3306
 

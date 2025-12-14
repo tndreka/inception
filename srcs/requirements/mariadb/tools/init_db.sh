@@ -2,6 +2,10 @@
 
 set -e
 
+# Read passwords from secrets
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+
 echo "Starting MariaDB initialization..."
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then

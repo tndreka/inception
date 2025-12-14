@@ -35,12 +35,23 @@ bash
    # Edit srcs/.env with your own values
 
 
-3. **Build and start services:**
+3. **Create secrets directory and password files:**
+bash
+   mkdir -p secrets
+   echo "your_root_password" > secrets/db_root_password.txt
+   echo "your_db_password" > secrets/db_password.txt
+   echo "your_admin_password" > secrets/wp_admin_password.txt
+   echo "your_user_password" > secrets/wp_user_password.txt
+
+
+**Note:** The `secrets/` directory is in `.gitignore` and will NOT be committed to git.
+
+4. **Build and start services:**
 bash
 make all
 
 
-4. **Access the website:**
+5. **Access the website:**
    - Open browser: `https://tndreka.42.fr`
    - Accept self-signed SSL certificate
    - Login to WordPress admin: `https://tndreka.42.fr/wp-admin`

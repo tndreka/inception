@@ -1,6 +1,6 @@
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-DATA_PATH = /home/tndreka/data
+DATA_PATH = $(HOME)/inception_data
 
 #colors
 GREEN = \033[0;32m

@@ -52,32 +52,45 @@ Shows which containers are running.
 
 1. **Go to**: `https://tndreka.42.fr/wp-admin`
 2. **Login with admin credentials:**
-   - Username: `webmaster`
-   - Password: (from `.env` file: `WORDPRESS_ADMIN_PASSWORD`)
+   - Username: `webmaster` (from `srcs/.env`: `WORDPRESS_ADMIN_USER`)
+   - Password: (from `secrets/wp_admin_password.txt`)
 3. **Manage content**: Create posts, pages, customize theme
 
 ## Managing Credentials
 
 ### Location
 
-All credentials are stored in:
-- **File**: `srcs/.env`
-- ** DONT commit this file to git!**
+Credentials are stored in two places:
+- **Environment variables**: `srcs/.env` (usernames, database names, non-sensitive config)
+- **Secrets**: `secrets/` directory (passwords only - **NOT committed to git**)
 
 ### Available Credentials
+
+**Environment file:**
 bash
 cat srcs/.env
 
 
 You'll find:
-- **WordPress Admin**: `WORDPRESS_ADMIN_USER` / `WORDPRESS_ADMIN_PASSWORD`
-- **WordPress User**: `WORDPRESS_USER` / `WORDPRESS_USER_PASSWORD`
-- **Database**: `MYSQL_USER` / `MYSQL_PASSWORD`
-- **Database Root**: `MYSQL_ROOT_PASSWORD`
+- **WordPress Admin User**: `WORDPRESS_ADMIN_USER`
+- **WordPress User**: `WORDPRESS_USER`
+- **Database User**: `MYSQL_USER`
+- **Database Name**: `MYSQL_DATABASE`
+
+**Secrets (passwords):**
+bash
+ls secrets/
+
+
+Passwords are stored in:
+- `secrets/db_root_password.txt` - MariaDB root password
+- `secrets/db_password.txt` - MariaDB user password
+- `secrets/wp_admin_password.txt` - WordPress admin password
+- `secrets/wp_user_password.txt` - WordPress user password
 
 ### Changing Passwords
 
-1. **Edit** `srcs/.env`
+1. **Edit the secret files** in `secrets/` directory
 2. **Rebuild services**:
 bash
    make fclean

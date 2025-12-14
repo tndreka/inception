@@ -53,6 +53,15 @@ ENVEOF
 # Configure domain
 sudo bash -c 'echo "127.0.0.1 tndreka.42.fr" >> /etc/hosts'
 
+# Create secrets directory and password files
+mkdir -p secrets
+echo "your_root_password" > secrets/db_root_password.txt
+echo "your_db_password" > secrets/db_password.txt
+echo "your_admin_password" > secrets/wp_admin_password.txt
+echo "your_user_password" > secrets/wp_user_password.txt
+
+
+**Important:** Replace the passwords with your own secure passwords. The `secrets/` directory is in `.gitignore`.
 
 ## Building and Launching
 

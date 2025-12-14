@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Read passwords from secrets
+WORDPRESS_DB_PASSWORD=$(cat /run/secrets/db_password)
+WORDPRESS_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+WORDPRESS_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
+
 cd /var/www/html
 
 # Wait for MariaDB to be ready
